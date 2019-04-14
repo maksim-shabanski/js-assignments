@@ -340,7 +340,33 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
-    throw new Error('Not implemented');
+    var bracketMapping = {
+        ']':'[',
+        ')':'(',
+        '}':'{',
+        '>':'<'
+    };
+    var brackets = str.split("");
+    var bracketsLength = brackets.length;
+    var openingBracketsStack = [];
+
+    if (bracketsLength % 2 !== 0) return false;
+
+    for (var i = 0; i < bracketsLength; i++) {
+        var bracket = brackets[i];
+        var stackLength = openingBracketsStack.length;
+
+        if (
+        stackLength === 0 ||
+        openingBracketsStack[stackLength - 1] !== bracketMapping[bracket]
+        ) {
+        openingBracketsStack.push(bracket);
+        } else {
+        openingBracketsStack.pop();
+        }
+    }
+
+  return !openingBracketsStack.length;
 }
 
 
